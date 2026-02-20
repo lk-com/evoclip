@@ -1,0 +1,147 @@
+# ============================================
+# 隐私配置和敏感数据 (Privacy & Secrets)
+# ============================================
+
+# Local private configuration (never commit)
+config/config.local.yaml
+config/config.private.yaml
+config/*.local.yaml
+config/*.private.yaml
+
+# Environment variables and secrets
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# API Keys and credentials files
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.yaml
+secrets.json
+.credentials
+
+# ============================================
+# Python 项目忽略 (Python)
+# ============================================
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# ============================================
+# Node.js 项目忽略 (Node.js)
+# ============================================
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+web/dist/
+web/build/
+
+# ============================================
+# IDE 和编辑器 (IDE & Editors)
+# ============================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / IntelliJ
+.idea/
+*.iml
+*.iws
+
+# Trae / Cursor
+.trae/
+.codex/
+.claude/
+.opencode/
+.github 
+# ============================================
+# 操作系统文件 (OS Files)
+# ============================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.nfs*
+
+# ============================================
+# 日志和临时文件 (Logs & Temp)
+# ============================================
+
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*~
+
+# ============================================
+# 数据文件 (Data Files)
+# ============================================
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Chroma data (generated)
+data/chroma/
+
+# Uploads and outputs
+uploads/
+outputs/
+*.mp4
+*.mp3
+*.wav
+*.avi
+*.mov
+

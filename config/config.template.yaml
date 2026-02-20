@@ -1,0 +1,145 @@
+# EvoClip 模板配置（可提交到 GitHub）
+# 使用方式：
+# 1) 复制为本地私有配置：cp config/config.template.yaml config/config.local.yaml
+# 2) 填入你的真实密钥与地址
+# 3) 启动前设置：export EVOCLIP_CONFIG_PATH=config/config.local.yaml
+
+app:
+  name: evoclip
+  env: dev
+  task_queue_prefix: "evoclip:task"
+  session_ttl_seconds: 3600
+  progress_ttl_seconds: 86400
+  sse_channel_prefix: "evoclip:sse"
+
+credentials:
+  # 可选：OpenAI 凭据（当 provider=openai 时用于 TTS）
+  openai_api_key: ""
+  openai_base_url: "https://api.openai.com/v1"
+
+  # DashScope 原生 API（用于视觉/语音识别适配器）
+  dashscope_api_key: ""
+  dashscope_base_url: "https://dashscope.aliyuncs.com/api/v1"
+  # DashScope OpenAI 兼容 API（默认用于 embedding）
+  dashscope_compatible_base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+
+  # 聊天 LLM 提供商（推荐：LongCat）
+  llm_api_key: ""
+  llm_base_url: "https://api.longcat.chat/openai/v1"
+
+  # Embedding 提供商（推荐：DashScope 文本 embedding）
+  embedding_api_key: ""
+  embedding_base_url: "https://dashscope.aliyuncs.com/compatible-mode/v1"
+
+vision:
+  provider: dashscope
+  model: qwen3.5-plus-2026-02-15
+  timeout_seconds: 30
+  max_retries: 3
+
+video_analysis:
+  # 仅当源视频时长超过此阈值时才进行场景分割
+  scene_split_min_duration_ms: 10000
+  # 合并过短的场景切换以减少突兀的剪辑
+  min_scene_duration_ms: 2200
+  # 抽帧速率（帧/秒）
+  frame_sample_fps: 1
+  # 单个视频参与视觉分析的最大帧数
+  max_frames: 12
+  # 帧分析并发度
+  frame_analysis_concurrency: 3
+
+speech_recognition:
+  provider: dashscope
+  model: qwen3-asr-flash-realtime-2026-02-10
+  timeout_seconds: 60
+  max_retries: 2
+
+tts:
+  provider: dashscope_clone
+  openai_model: gpt-4o-mini-tts
+  dashscope_model: cosyvoice-v3-flash
+  dashscope_voice: longanyang
+  dashscope_voice_id: ""
+  clone_from_video: true
+  clone_strict: false
+  clone_prefix: evoclip
+  clone_sample_seconds: 15
+  clone_sample_max_seconds: 60
+  clone_language_hint: "zh"
+  clone_poll_seconds: 2
+  clone_max_wait_seconds: 60
+  clone_presign_expire_seconds: 3600
+  clone_public_base_url: "https://your-public-minio-domain"
+  clone_audio_url: ""
+  volcengine_voice: zh_female_shuangkuaisisi_moon_bigtts
+  timeout_seconds: 20
+  max_retries: 3
+
+llm:
+  provider: openai
+  model: LongCat-Flash-Chat
+  timeout_seconds: 30
+  max_retries: 3
+
+copy_generation:
+  speech_rate_chars_per_second: 3.8
+  max_sentence_seconds: 6.0
+  target_segment_seconds: 2.5
+  min_sentence_chars: 4
+  duration_safety_factor: 0.88
+  max_sentences: 12
+  limit_one_sentence_per_scene: true
+  # false：默认保持时间顺序
+  reorder_by_scene_strategy: false
+  highlight_keywords:
+    - 高光
+    - 亮点
+    - 特写
+    - 核心
+    - 爆点
+    - 卖点
+    - 对比
+    - 效果
+    - before
+    - after
+    - highlight
+    - wow
+
+embedding:
+  provider: qwen
+  model: qwen3-vl-embedding
+
+video_render:
+  pipeline_mode: single_pass
+  allow_legacy_fallback: true
+  audio_fit_max_speed: 1.10
+  audio_short_pad_ms: 250
+  output_fps: 30
+  output_sample_rate: 24000
+
+quality_evaluation:
+  sync_tolerance_ms: 120
+
+storage:
+  minio:
+    endpoint: localhost:9000
+    access_key: minioadmin
+    secret_key: minioadmin
+    secure: false
+    buckets:
+      videos: videos
+      audio: audio
+      intermediate: intermediate
+      output: output
+
+redis:
+  url: redis://localhost:6379/1
+
+postgres:
+  dsn: postgresql+asyncpg://postgres:postgres@localhost:5432/evoclip
+
+paths:
+  prohibited_words: config/dictionaries/prohibited_words.txt
+  copy_prompt: config/prompts/copy_generation.yaml
+  optimization_prompt: config/prompts/skill_optimization.yaml

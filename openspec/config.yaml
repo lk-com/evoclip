@@ -1,0 +1,20 @@
+schema: spec-driven
+
+# 项目上下文（可选）
+# 这会在 AI 创建工件时显示。
+# 添加你的技术栈、约定、风格指南、领域知识等。
+# 示例：
+#   context: |
+#     技术栈：TypeScript, React, Node.js
+#     我们使用 conventional commits
+#     领域：电商平台
+
+# 每个工件的规则（可选）
+# 为特定工件添加自定义规则。
+# 示例：
+#   rules:
+#     proposal:
+#       - 保持提案在 500 字以内
+#       - 始终包含"非目标"部分
+#     tasks:
+#       - 将任务分成最大 2 小时的小块

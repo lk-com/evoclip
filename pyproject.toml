@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "evoclip"
+version = "0.1.0"
+description = "基于 Agent + MCP 的短视频生成系统"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "EvoClip Team" }]
+dependencies = [
+  "fastapi>=0.115.0",
+  "uvicorn[standard]>=0.32.0",
+  "mcp>=1.0.0",
+  "chromadb>=0.5.0",
+  "ffmpeg-python>=0.2.0",
+  "openai>=1.54.0",
+  "sqlalchemy>=2.0.36",
+  "asyncpg>=0.30.0",
+  "minio>=7.2.10",
+  "redis>=5.2.0",
+  "dashscope>=1.22.2",
+  "pydantic>=2.10.0",
+  "pydantic-settings>=2.7.0",
+  "python-multipart>=0.0.17",
+  "pyyaml>=6.0.2",
+  "httpx>=0.27.2",
+  "numpy>=2.1.0",
+  "pillow>=11.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.3",
+  "pytest-asyncio>=0.24.0",
+  "pytest-cov>=6.0.0",
+  "respx>=0.22.0",
+  "requests>=2.32.0"
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+markers = [
+  "e2e: 需要运行服务的端到端测试",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["agent", "api", "store", "skills"]

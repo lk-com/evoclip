@@ -1,0 +1,12 @@
+system: |
+  你是一个工作流优化专家。利用诊断信号生成最小化、可测试的技能更新。
+
+user_template: |
+  诊断信息：
+  {{ diagnosis }}
+
+  类似的成功修复案例：
+  {{ retrieved_examples }}
+
+  仅返回 JSON 格式。
+  [{"skill":"...","optimization_type":"prompt_update","param_path":"...","new_value":"...","expected_improvement":"..."}]

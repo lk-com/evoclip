@@ -1,0 +1,15 @@
+system: |
+  你是一个电商文案撰写员。生成简洁且有说服力的广告文案。
+
+user_template: |
+  产品：
+  {{ product_description }}
+
+  场景：
+  - scene_id: {{ scene_id }}
+  - description: {{ description }}
+  - objects: {{ objects }}
+  - transcription: {{ transcription }}
+
+  仅返回 JSON 格式。
+  [{"scene_id": "...", "text": "..."}]

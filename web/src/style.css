@@ -1,0 +1,342 @@
+/* 字体引入 */
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-primary text-slate-100 font-sans;
+    background: radial-gradient(ellipse 80% 60% at 20% 0%, rgba(124, 58, 237, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 100%, rgba(225, 29, 72, 0.1) 0%, transparent 60%),
+                linear-gradient(160deg, #080818 0%, #0F0F2E 40%, #080818 100%);
+    min-height: 100vh;
+    background-attachment: fixed;
+  }
+
+  * {
+    @apply border-white/8;
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    @apply bg-cta/30 text-white;
+  }
+}
+
+/* --------------------------------------------------------
+   组件层
+   -------------------------------------------------------- */
+@layer components {
+  /* 玻璃卡片 */
+  .glass-card {
+    @apply relative bg-surface border rounded-2xl;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .glass-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    @apply bg-surface-hover border-white/15;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 24px rgba(225, 29, 72, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    transform: translateY(-1px);
+  }
+
+  /* 按钮 */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-xl text-white
+           transition-all duration-200 select-none cursor-pointer;
+    background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+    box-shadow: 0 4px 16px rgba(225, 29, 72, 0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 24px rgba(225, 29, 72, 0.5), inset 0 1px 0 rgba(255,255,255,0.15);
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #F43F5E 0%, #E11D48 100%);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
+  }
+
+  .btn-primary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-medium rounded-xl text-white
+           border border-white/15 bg-white/6 transition-all duration-200 select-none;
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-secondary:hover {
+    @apply bg-white/12 border-white/25;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* 输入框 */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white text-sm
+           placeholder-slate-500 transition-all duration-200 focus:outline-none;
+    backdrop-filter: blur(8px);
+  }
+
+  .input-field:focus {
+    @apply border-cta/40 bg-white/8;
+    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .input-field:hover:not(:focus) {
+    @apply border-white/20 bg-white/7;
+  }
+
+  /* 渐变文字 */
+  .text-gradient {
+    background: linear-gradient(135deg, #F43F5E 0%, #FB7185 40%, #E879F9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #A78BFA 0%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* 分隔线 */
+  .divider {
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  /* 状态徽章 */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-processing {
+    @apply badge bg-amber-500/15 text-amber-300 border border-amber-500/25;
+  }
+
+  .badge-success {
+    @apply badge bg-emerald-500/15 text-emerald-300 border border-emerald-500/25;
+  }
+
+  .badge-error {
+    @apply badge bg-rose-500/15 text-rose-300 border border-rose-500/25;
+  }
+
+  .badge-neutral {
+    @apply badge bg-slate-500/15 text-slate-300 border border-slate-500/25;
+  }
+
+  /* 图标容器 */
+  .icon-box {
+    @apply flex items-center justify-center rounded-xl shrink-0;
+  }
+
+  .icon-box-sm {
+    @apply icon-box h-8 w-8;
+  }
+
+  .icon-box-md {
+    @apply icon-box h-10 w-10;
+  }
+
+  .icon-box-lg {
+    @apply icon-box h-12 w-12;
+  }
+
+  .icon-box-primary {
+    background: linear-gradient(135deg, rgba(225, 29, 72, 0.2) 0%, rgba(190, 18, 60, 0.1) 100%);
+    border: 1px solid rgba(225, 29, 72, 0.25);
+  }
+
+  .icon-box-gradient {
+    background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+  }
+
+  /* 进度条 */
+  .progress-track {
+    @apply relative w-full h-2 rounded-full overflow-hidden;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .progress-fill {
+    @apply absolute inset-y-0 left-0 rounded-full transition-all duration-500 ease-out;
+    background: linear-gradient(90deg, #E11D48 0%, #F43F5E 60%, #FB7185 100%);
+    box-shadow: 0 0 8px rgba(225, 29, 72, 0.5);
+  }
+
+  .progress-shimmer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+    animation: progressBar 1.8s ease-in-out infinite;
+  }
+
+  /* 步骤节点 */
+  .step-node {
+    @apply flex items-center justify-center w-9 h-9 rounded-full shrink-0 transition-all duration-300;
+  }
+
+  .step-node-pending {
+    @apply step-node bg-white/5 border border-white/10 text-slate-500;
+  }
+
+  .step-node-active {
+    @apply step-node border text-white;
+    background: linear-gradient(135deg, rgba(225, 29, 72, 0.2), rgba(190, 18, 60, 0.1));
+    border-color: rgba(225, 29, 72, 0.5);
+    box-shadow: 0 0 16px rgba(225, 29, 72, 0.25);
+  }
+
+  .step-node-done {
+    @apply step-node text-white;
+    background: linear-gradient(135deg, #E11D48 0%, #BE123C 100%);
+    box-shadow: 0 2px 8px rgba(225, 29, 72, 0.4);
+  }
+
+  /* 上传区 */
+  .upload-zone {
+    @apply relative rounded-xl border-2 border-dashed p-8 text-center transition-all duration-200 cursor-pointer;
+    background: rgba(255,255,255,0.02);
+  }
+
+  .upload-zone:hover {
+    @apply border-white/35;
+    background: rgba(255,255,255,0.04);
+  }
+
+  .upload-zone-active {
+    border-color: rgba(225, 29, 72, 0.6) !important;
+    background: rgba(225, 29, 72, 0.06) !important;
+    box-shadow: inset 0 0 32px rgba(225, 29, 72, 0.05), 0 0 16px rgba(225, 29, 72, 0.1);
+  }
+
+  /* 文件列表项 */
+  .file-item {
+    @apply flex items-center gap-3 p-3 rounded-xl transition-all duration-200;
+    background-color: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+  }
+
+  .file-item:hover {
+    background-color: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+  }
+
+  /* 导航栏 */
+  .nav-bar {
+    @apply relative z-50;
+    background: linear-gradient(180deg, rgba(8,8,24,0.9) 0%, transparent 100%);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  /* 噪点纹理覆盖层 */
+  .noise-overlay {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+}
+
+/* --------------------------------------------------------
+   工具类
+   -------------------------------------------------------- */
+@layer utilities {
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-600 { animation-delay: 600ms; }
+  .animate-delay-800 { animation-delay: 800ms; }
+
+  .border-white\/8 { border-color: rgba(255,255,255,0.08); }
+  .bg-white\/4 { background-color: rgba(255,255,255,0.04); }
+  .bg-white\/6 { background-color: rgba(255,255,255,0.06); }
+  .bg-white\/7 { background-color: rgba(255,255,255,0.07); }
+  .bg-white\/8 { background-color: rgba(255,255,255,0.08); }
+  .bg-white\/12 { background-color: rgba(255,255,255,0.12); }
+
+  .text-balance { text-wrap: balance; }
+}
+
+/* --------------------------------------------------------
+   自定义滚动条
+   -------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* --------------------------------------------------------
+   全局过渡
+   -------------------------------------------------------- */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
